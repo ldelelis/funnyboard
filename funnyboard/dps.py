@@ -18,7 +18,6 @@ class DPSDiscordClient(Client):
         if message.channel.id != int(STARBOARD_CHANNEL_ID):
             return
 
-        import ipdb; ipdb.set_trace()
         embed = message.embeds[-1]
         if embed.image:
             return
