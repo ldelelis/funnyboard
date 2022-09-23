@@ -8,6 +8,7 @@ from funnyboard.twitter.client import TwitterAPIClient
 def main():
     intents = discord.Intents.default()
     intents.message_content = True
+    discord.utils.setup_logging()
 
     twitter_api = TwitterAPIClient(
         client=TWITTER_CONSUMER_KEY,
