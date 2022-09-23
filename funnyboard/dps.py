@@ -13,13 +13,19 @@ class DPSDiscordClient(Client):
         self.twitter_client = twitter_client
 
     async def on_message(self, message: Message):
+        print("on receiver")
         if message.channel.id != int(STARBOARD_CHANNEL_ID):
+            print("skipped")
+            print(f"expected id: {STARBOARD_CHANNEL_ID}")
+            print(f"got id: {message.channel.id}")
             return
 
-        embed = message.embeds[0]
+        embed = message.embeds[-1]
         if embed.image:
+            print("got image")
             return
 
         content = embed.description
         if content:
-            self.twitter_client.tweet(content)
+            resp = self.twitter_client.tweet(content)
+            print(f"got resp {resp.status_code}, {resp.json()}")

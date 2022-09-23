@@ -29,3 +29,5 @@ class TwitterAPIClient(Session):
 
         response = self.post(f"{self.url}/tweets", json=body.dict(), headers=headers, auth=auth)
         response.raise_for_status()
+
+        return response
