@@ -1,9 +1,11 @@
+import re
 from typing import Any
+
 from discord.client import Client
 from discord.flags import Intents
 from discord.message import Message
 
-from funnyboard.config import STARBOARD_CHANNEL_ID
+from funnyboard.config import STARBOARD_CHANNEL_ID, TWEETS_ENABLED
 from funnyboard.twitter.client import TwitterAPIClient
 
 
@@ -16,10 +18,14 @@ class DPSDiscordClient(Client):
         if message.channel.id != int(STARBOARD_CHANNEL_ID):
             return
 
+        import ipdb; ipdb.set_trace()
         embed = message.embeds[-1]
         if embed.image:
             return
 
-        content = embed.description
-        if content:
+        content = re.sub(r"<@.*>", "@anon", embed.description)
+        if not content:
+            return
+
+        if TWEETS_ENABLED:
             resp = self.twitter_client.tweet(content)

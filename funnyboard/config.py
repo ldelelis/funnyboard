@@ -1,6 +1,9 @@
 import os
 
 
+DEBUG = os.getenv("DEBUG", "false").lower() == "true"
+TWEETS_ENABLED = os.getenv("TWEETS_ENABLED", "true").lower() == "true"
+
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN", "")
 STARBOARD_CHANNEL_ID = os.getenv("STARBOARD_CHANNEL_ID", "")
 
